@@ -22,7 +22,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#e74c3c' },
   /*
   ** Global CSS
   */
@@ -33,8 +33,8 @@ export default {
   */
   plugins: [
     { src: '~/plugins/localStorage.js', ssr: false },
-    { src: '~/plugins/vee-validate.js', ssr: false },
     { src: '~/plugins/date-filter.js' },
+    { src: '~/plugins/currency-filter.js' },
   ],
   /*
   ** Nuxt.js dev-modules

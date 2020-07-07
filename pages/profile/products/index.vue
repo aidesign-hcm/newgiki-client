@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import listProduct from "~/components/listProduct.vue";
+import listProduct from "~/components/ProductView/listProduct.vue";
 export default {
   middleware: ["auth"],
   auth: true,

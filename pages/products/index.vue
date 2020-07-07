@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import productCard from "~/components/productCard.vue";
+import productCard from "~/components/ProductView/productCard.vue";
 
 export default {
   async asyncData({ $axios }) {

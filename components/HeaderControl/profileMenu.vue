@@ -30,8 +30,10 @@ export default {
         drawer: null,
         items: [
           { label: 'Profile', url: '/profile/' },
-          { label: 'My products', url: '/profile/my-products' },
-          { label: 'Add Product', url: '/profile/add-product' },
+          { label: 'My products', url: '/profile/products' },
+          { label: 'Add Product', url: '/profile/products/add' },
+          { label: 'Address', url: '/profile/address' },
+          { label: 'Oders', url: '/profile/orders' },
         ],
       }
     },

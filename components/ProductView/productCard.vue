@@ -17,7 +17,10 @@
         </v-img>
         <v-card-text class="text--primary">
           <h2>
-            <nuxt-link :to="/products/ + product._id">{{
+            <nuxt-link v-if="product._id" :to="/products/ + product._id">{{
+              product.name
+            }}</nuxt-link>
+            <nuxt-link v-else :to="/products/ + product.objectID">{{
               product.name
             }}</nuxt-link>
           </h2>
@@ -25,7 +28,7 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn color="orange" text> Price: {{ product.price }} </v-btn>
+          <v-btn color="orange" text> Price: {{ product.price | currency }} </v-btn>
           <v-btn :to="/products/ + product._id" color="orange" text>
             Read More
           </v-btn>

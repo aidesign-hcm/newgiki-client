@@ -28,25 +28,16 @@
                   <v-icon @click="qtyIncrement(product)">mdi-plus</v-icon>
                 </v-row>
                 <span class="a-size-small">
-                  <a @click="$store.commit('removeProduct', product)">Delete</a>
+                  <a @click="$store.commit('REMOVE_PRODUCT', product)">Delete</a>
                 </span>
               </v-col>
               <v-col cols="4"> </v-col>
             </v-row>
           </v-col>
           <v-col md="4" cols="12">
-            <p class="a-spacing-none a-spacing-top-none">
-              <!-- Cart Subtotal -->
-              <span class="a-size-medium">
-                <span>Subtotal ({{ getCartlength }} item):</span>
-                <span class="a-color-price a-text-bold">
-                  <!-- Cart Total Price  -->
-                  <span class="a-size-medium a-color-price"
-                    >${{ getCartTotal }}</span
-                  >
-                </span>
-              </span>
-            </p>
+                <p>Subtotal ({{ getCartlength }} item):</p>
+                <p>${{ getCartTotal | currency}}</p>
+                <nuxt-link  to="/checkout" color="white">Thanh toán</nuxt-link>
           </v-col>
         </v-row>
       </v-container>

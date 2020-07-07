@@ -11,6 +11,9 @@
           />
         </nuxt-link>
       </v-toolbar-title>
+
+      <Search />
+      
       <v-spacer />
       <div class="hidden-sm-and-down mx-auto" optional>
         <v-btn
@@ -29,7 +32,7 @@
       <template v-if="$auth.$state.loggedIn">
         <a class="mx-4" @click="onLogout" text>Logout</a>
         <a @click.stop="drawer = !drawer">
-        {{$auth.$state.user.userName}}
+          {{ $auth.$state.user.userName }}
         </a>
       </template>
       <template v-else>
@@ -44,14 +47,20 @@
         </nuxt-link>
       </div>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary v-if="$auth.$state.loggedIn">
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+      v-if="$auth.$state.loggedIn"
+    >
       <profileMenu />
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
-import profileMenu from "~/components/profileMenu.vue";
+import Search from '~/components/HeaderControl/search.vue'
+import profileMenu from "~/components/HeaderControl/profileMenu.vue";
 import { mapGetters } from "Vuex";
 export default {
   data() {
@@ -91,7 +100,8 @@ export default {
     }
   },
   components: {
-    profileMenu
+    profileMenu,
+    Search
   }
 };
 </script>
