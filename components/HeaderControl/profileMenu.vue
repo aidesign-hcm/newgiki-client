@@ -2,7 +2,7 @@
   <div>
     <v-list-item>
       <v-list-item-avatar>
-        <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+        <v-img :src="serverUrl + $auth.$state.user.avatar"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>{{$auth.$state.user.userName}}</v-list-item-title>
@@ -27,6 +27,7 @@ export default {
     auth: true,
     data () {
       return {
+        serverUrl: "http://localhost:8338/",
         drawer: null,
         items: [
           { label: 'Profile', url: '/profile/' },

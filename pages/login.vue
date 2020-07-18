@@ -8,9 +8,6 @@
             <h1 class="display-1">Login</h1>
           </v-card-title>
           <v-card-text>
-            <v-alert type="warning" v-show="errMessage">
-                {{ message }}
-              </v-alert>
               <v-text-field
                 v-model="email"
                 label="email"

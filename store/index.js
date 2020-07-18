@@ -2,29 +2,31 @@ export const state = () => ({
   cart: [],
   cartLength: 0,
   shippingPrice: 0,
-  shippingEstimated: ""
+  shippingEstimated: "",
+  user: null,
 });
 
 export const actions = {
-  addProductToCart({ state, commit }, product) {
+  addProductToCart({ state, commit }, {product, quantity, term}) {
     const cartProduct = state.cart.find(prod => prod._id === product._id);
     if (!cartProduct) {
-      commit("PUSH_PRODUCT_TO_CART", product);
+      commit("PUSH_PRODUCT_TO_CART", {product, quantity, term});
     } else {
-      commit("INCREMENT_PRODUCT_QTY", cartProduct);
+      commit("INCREMENT_PRODUCT_QTY", {cartProduct, quantity, term});
     }
     commit("INCREMENT_CART_LENGTH");
   }
 };
 
 export const mutations = {
-  PUSH_PRODUCT_TO_CART(state, product) {
-    (product.quantity = 1), state.cart.push(product);
+  PUSH_PRODUCT_TO_CART(state, {product, quantity, term}) {
+    (product.quantity = quantity), 
+    (product.term = term)
+    state.cart.push(product);
   },
-  INCREMENT_PRODUCT_QTY(state, product) {
-    product.quantity++;
-    let indexOfProduct = state.cart.indexOf(product);
-    state.cart.splice(indexOfProduct, 1, product);
+  INCREMENT_PRODUCT_QTY(state, {cartProduct, quantity, term}) {
+    cartProduct.quantity = quantity,
+    cartProduct.term = term
   },
   INCREMENT_CART_LENGTH(state) {
     state.cartLength = 0;
@@ -82,6 +84,9 @@ export const mutations = {
 export const getters = {
   getCartlength(state) {
     return state.cartLength;
+  },
+  getUser(state) {
+    return state.auth.user;
   },
   getCart(state) {
     return state.cart;

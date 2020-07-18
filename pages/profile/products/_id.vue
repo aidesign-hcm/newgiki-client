@@ -3,27 +3,27 @@
     <v-container>
       <v-card width="800" class="mx-auto px-2 py-2">
         <v-alert type="warning" v-show="errMessage">
-                {{ message }}
-              </v-alert>
-          <v-form ref="onEditProduct" v-model="formValidity">
-            <v-card-title>
-              <h2 class="display-1">Edit Product</h2>
-            </v-card-title>
-            <addProduct :product="product" :categories="categories" />
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-btn color="info" @click="onAddProduct">Xác nhận</v-btn>
-              <v-spacer />
-              <v-btn color="success" @click="clear">Reset</v-btn>
-            </v-card-actions>
-          </v-form>
+          {{ message }}
+        </v-alert>
+        <v-form ref="onEditProduct" v-model="formValidity">
+          <v-card-title>
+            <h2 class="display-1">Edit Product</h2>
+          </v-card-title>
+          <addProduct :product="product" :categories="categories" />
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-btn color="info" @click="onAddProduct">Xác nhận</v-btn>
+            <v-spacer />
+            <v-btn color="success" @click="clear">Reset</v-btn>
+          </v-card-actions>
+        </v-form>
       </v-card>
     </v-container>
   </div>
 </template>
 
 <script>
-import addProduct from '~/components/ProfileControl/addProduct'
+import addProduct from "~/components/ProfileControl/addProduct";
 import { required, max } from "vee-validate/dist/rules";
 
 export default {
@@ -48,32 +48,33 @@ export default {
   data: () => ({
     formValidity: false,
     message: "",
-    errMessage: false,
+    errMessage: false
   }),
 
   methods: {
     async onAddProduct() {
-      if (this.$refs.onEditProduct.validate()){
+      if (this.$refs.onEditProduct.validate()) {
         try {
-        let data = new FormData();
-        data.append("Category", this.Category);
-        data.append("User", this.getUserName);
-        data.append("name", this.product.name);
-        data.append("price", this.product.price);
-        data.append("desc", this.product.desc);
-        data.append("StockQuantity", this.product.StockQuantity);
-        data.append("productImage", this.productImage);
-        let result = await this.$axios.$put(
-          `/api/products/${this.$route.params.id}`,
-          data
-        );
-        this.$router.push("/");
-      } catch (err) {
-        console.log(err);
-        this.message = "Có lỗi trong lúc đăng sản phẩm";
-        this.errMessage = true;
-      }
-
+          let data = new FormData();
+          data.append("Category", this.product.Category);
+          data.append("User", this.getUserName);
+          data.append("name", this.product.name);
+          data.append("price", this.product.price);
+          data.append("desc", this.product.desc);
+          data.append("StockQuantity", this.product.StockQuantity);
+          for (let file of this.Product.productImage) {
+            data.append("productImage", file, file.name);
+          }
+          let result = await this.$axios.$put(
+            `/api/products/${this.$route.params.id}`,
+            data
+          );
+          this.$router.push("/");
+        } catch (err) {
+          console.log(err);
+          this.message = "Có lỗi trong lúc đăng sản phẩm";
+          this.errMessage = true;
+        }
       }
     },
     clear() {

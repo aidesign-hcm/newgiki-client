@@ -2,11 +2,8 @@
   <v-layout column justify-center align-center>
     <v-container class="mb-6">
       <v-row v-if="count === 0"><p>Bạn không có sản phẩm nào</p></v-row>
-      <v-row v-else>
-        <listProduct
-          v-for="product in products"
-          :product="product"
-          :key="product.id"
+        <listProduct v-else
+          :products="products"
           @onDeleteProduct="onDeleteProduct"
         ></listProduct>
         <v-col cols="12" class="text-center">
@@ -16,7 +13,6 @@
             total-visible="5"
           ></v-pagination>
         </v-col>
-      </v-row>
     </v-container>
   </v-layout>
 </template>

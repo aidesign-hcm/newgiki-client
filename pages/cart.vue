@@ -13,7 +13,7 @@
               <v-col cols="2">
                 <v-img
                   class="white--text align-end"
-                  :src="serverUrl + product.productImage"
+                  :src="serverUrl + product.productImage[0].path"
                 ></v-img>
               </v-col>
               <v-col cols="6">
@@ -22,6 +22,7 @@
                   class="a-link-normal a-size-medium a-text-bold"
                   >{{ product.name }}</nuxt-link
                 >
+                <div v-if="product.term">{{product.attribute.name}}: {{product.term}}</div>
                 <v-row justify="space-around">
                   <v-icon @click="qtyDecrement(product)">mdi-minus</v-icon>
                   {{ product.quantity }}

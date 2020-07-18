@@ -12,7 +12,7 @@
       <v-card v-show="loaded" transition="fade-transition" class="mx-auto">
         <v-img
           class="white--text align-end"
-          :src="serverUrl + product.productImage"
+          :src="serverUrl + product.productImage[0].path"
         >
         </v-img>
         <v-card-text class="text--primary">

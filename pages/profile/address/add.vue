@@ -1,5 +1,5 @@
 <template>
-  <div id="addAddress">
+  <div id="addaddress">
     <v-main>
       <v-container>
         <v-card width="800" class="mx-auto px-2 py-2">
@@ -8,12 +8,12 @@
               <h1 class="display-1">Tạo địa chỉ mới</h1>
             </v-card-title>
             <addAddress 
-            :Address="Address"
+            :address="address"
             :cities="cities.data"
              />
             <v-divider></v-divider>
             <v-card-actions>
-              <v-btn :disabled="!formValidity" color="info" @click="onAddress"
+              <v-btn :disabled="!formValidity" color="info" @click="onaddress"
                 >Thêm</v-btn
               >
               <v-spacer />
@@ -43,7 +43,8 @@ export default {
   data() {
     return {
       formValidity: false,
-      Address: {
+      address: {
+        name:"",
         street: "",
         apartment: "",
         district: "",
@@ -53,15 +54,16 @@ export default {
     };
   },
   methods: {
-    async onAddress() {
+    async onaddress() {
       if (this.$refs.onaddAdress.validate()) {
         try {
           let data = {
-            street: this.Address.street,
-            apartment: this.Address.apartment,
-            district: this.Address.district,
-            city: this.Address.city,
-            phoneNumber: this.Address.phoneNumber
+            name: this.address.name,
+            street: this.address.street,
+            apartment: this.address.apartment,
+            district: this.address.district,
+            city: this.address.city,
+            phoneNumber: this.address.phoneNumber
           };
           let response = await this.$axios.$post("/api/address", data);
           if (response.success) {

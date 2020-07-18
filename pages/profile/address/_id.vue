@@ -8,7 +8,7 @@
               <h1 class="display-1">Chính sửa địa chỉ</h1>
             </v-card-title>
             <addAddress 
-            :Address="Address"
+            :address="address"
             :cities="cities.data" />
             <v-divider></v-divider>
             <v-card-actions>
@@ -18,8 +18,6 @@
                 @click="onUpdateAddress"
                 >Xác nhận</v-btn
               >
-              <v-spacer />
-              <v-btn color="success" @click="reset">Reset</v-btn>
             </v-card-actions>
           </v-form>
         </v-card>
@@ -51,14 +49,14 @@ export default {
   async asyncData({$axios, params}) {
         try {
         let response = $axios.$get("/api/address/city");
-        let singleAddress= $axios.$get(`/api/address/${params.id}`)
+        let singleAddress= $axios.$get(`/api/address/`)
         let [citiesResponse, addressResponse] = await Promise.all([
             response,
             singleAddress
         ])
         return {
             cities: citiesResponse,
-            Address: addressResponse.address
+            address: addressResponse.userInfo.address,
         }
         } catch (err){
             console.log(err);
@@ -69,11 +67,12 @@ export default {
       if (this.$refs.onEditAddress.validate()) {
         try {
           let data = {
-            street: this.Address.street,
-            apartment: this.Address.apartment,
-            district: this.Address.district,
-            city: this.Address.city,
-            phoneNumber: this.Address.phoneNumber
+            name: this.address.name,
+            street: this.address.street,
+            apartment: this.address.apartment,
+            district: this.address.district,
+            city: this.address.city,
+            phoneNumber: this.address.phoneNumber
           };
           let response = await this.$axios.$put(
             `/api/address/${this.$route.params.id}`,

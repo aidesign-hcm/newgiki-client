@@ -10,13 +10,14 @@
                 <v-col cols="2">
                   <v-img
                     class="white--text align-end"
-                    :src="serverUrl + product.productId.productImage"
+                    :src="serverUrl + product.productId.productImage[0].path"
                   ></v-img>
                 </v-col>
                 <v-col cols="6">
                   <nuxt-link :to="/products/ + product.productId._id">{{
                     product.productId.name
                   }}</nuxt-link>
+                  <p>Opiton: {{ product.term }}</p>
                   <p>Số lượng: {{ product.quantity }}</p>
                   <p>Gía: {{ product.price }}</p>
                   <p v-if="product.productId.User">Người bán: {{ product.productId.User.userName }}</p>
@@ -38,6 +39,12 @@ export default {
     } catch (error) {
       console.log(error);
     }
+  },
+  data() {
+    return {
+      model: 0,
+      serverUrl: "http://localhost:8338/"
+    };
   },
 };
 </script>

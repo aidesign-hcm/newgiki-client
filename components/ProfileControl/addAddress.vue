@@ -1,41 +1,59 @@
 <template>
   <div>
     <v-card-text>
+      <div v-if="$auth.$state.loggedIn">
+        <v-text-field
+        v-model="address.name"
+        label="Họ và tên"
+        required
+        type="text"
+        :placeholder="getUser.userName"
+       />
+      </div>
+      <v-text-field v-else
+        v-model="address.name"
+        label="Họ và tên"
+        :rules="rules"
+        required
+        type="text"
+      />
       <v-text-field
-        v-model="Address.street"
+        v-model="address.street"
         label="Địa chỉ"
         :rules="rules"
         required
         type="text"
       />
       <v-text-field
-        v-model="Address.phoneNumber"
+        v-model="address.phoneNumber"
         label="Số điện thoại"
         required
         type="Number"
       />
       <v-text-field
-        v-model="Address.apartment"
+        v-model="address.apartment"
         label="Tên chung cư/ Số Tầng"
         type="text"
       />
       <v-select
         item-text="name"
         item-value="name"
-        v-model="Address.city"
+        v-model="address.city"
         :items="cities"
         label="Thành Phố"
         required
+        :rules="[v => !!v || 'Item is required']"
       ></v-select>
-      <div v-for="ci in cities" :key="ci.level1_id">
+      <div v-for="(ci, i) in cities" :key="i">
         <v-select
-          v-if="ci.name === Address.city"
+          v-if="ci.name === address.city"
           item-text="name"
           item-value="name"
-          v-model="Address.district"
+          v-model="address.district"
           :items="ci.level2s"
           label="Quận Huyện"
           required
+          :rules="[v => !!v || 'Item is required']"
         ></v-select>
       </div>
     </v-card-text>
@@ -43,9 +61,10 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   props: {
-    Address: {
+    address: {
       type: Object,
       required: false
     },
@@ -56,9 +75,14 @@ export default {
   },
   data() {
     return {
-      rules: [v => v.length >= 5 || "Min 5 characters"]
+      rules: [v => v.length >= 5 || "Min 5 characters"],
     };
-  }
+  },
+  computed: {
+    ...mapGetters([
+      "getUser"
+    ])
+  },
 };
 </script>
 

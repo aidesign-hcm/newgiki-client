@@ -16,7 +16,7 @@
                 <v-col cols="2">
                   <v-img
                     class="white--text align-end"
-                    :src="serverUrl + product.productId.productImage"
+                    :src="serverUrl + product.productId.productImage[0].path"
                   ></v-img>
                 </v-col>
                 <v-col cols="6">
